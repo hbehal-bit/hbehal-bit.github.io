@@ -1,5 +1,5 @@
 // Watchdog Accounting — simulation_ceo.js
-// The "God Mode" simulation: A slow, methodical expansion into random industries.
+// The "God Mode" simulation: Robust infinite loop version.
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -9,18 +9,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const ceoStatus = document.getElementById('ceoStatus');
   
   let isRunning = false;
-  let loopId = null;
 
-  // --- 1. DATA GENERATORS ---
+  // --- 1. UTILITIES ---
   
+  const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+  function maintainHygiene() {
+    if (ceoFeed.children.length > 30) {
+      // Remove oldest logs to keep DOM light
+      while (ceoFeed.children.length > 25) {
+        if(ceoFeed.lastChild) ceoFeed.removeChild(ceoFeed.lastChild);
+      }
+    }
+  }
+
+  function appendLog(html, color = '#94a3b8') {
+    const li = document.createElement('li');
+    li.style.color = color;
+    li.innerHTML = html;
+    ceoFeed.prepend(li);
+    maintainHygiene();
+  }
+
+  // --- 2. DATA FETCHING (With Timeout Safety) ---
+
   async function fetchRandomTrend() {
     try {
-      const response = await fetch('https://random-word-api.herokuapp.com/word?number=1');
-      if (!response.ok) throw new Error("API Limit");
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
+      const response = await fetch('https://random-word-api.herokuapp.com/word?number=1', {
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) throw new Error("API Error");
       const data = await response.json();
       return data[0]; 
     } catch (error) {
-      const fallbacks = ["logistics", "lithium", "coffee", "insurance", "pets", "gravel", "uranium"];
+      // Failover topics if API hangs or fails
+      const fallbacks = ["logistics", "lithium", "coffee", "insurance", "pets", "gravel", "uranium", "water"];
       return fallbacks[Math.floor(Math.random() * fallbacks.length)];
     }
   }
@@ -43,82 +71,65 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
-  // --- 2. DOM HELPERS ---
-
-  function maintainHygiene() {
-    if (ceoFeed.children.length > 30) {
-      for (let i = 0; i < 5; i++) {
-        if(ceoFeed.lastChild) ceoFeed.removeChild(ceoFeed.lastChild);
-      }
-    }
-  }
-
-  function appendLog(html, color = '#94a3b8') {
-    const li = document.createElement('li');
-    li.style.color = color;
-    li.innerHTML = html;
-    ceoFeed.prepend(li);
-    maintainHygiene();
-  }
-
-  // --- 3. THE "MILKING IT" SEQUENCE ---
-
-  // Helper to wait asynchronously
-  const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  // --- 3. THE WORKFLOW STEPS ---
 
   async function performDeepWork(strategy) {
     if(!isRunning) return;
 
-    // STEP 1: INITIAL ANALYSIS (10 seconds)
+    // STEP 1: INITIAL ANALYSIS
     ceoStatus.textContent = `ANALYZING: ${strategy.topic.toUpperCase()}`;
-    const terms = ["Market Density", "Regulatory Friction", "Competitor Cash Flow", "Consumer Sentiment"];
+    const terms = ["Market Density", "Regulatory Friction", "Competitor Cash Flow"];
+    
     for(const term of terms) {
       if(!isRunning) return;
-      await wait(2500); 
+      await wait(2000); // Wait 2s
       const val = Math.floor(Math.random() * 850) + 150;
       appendLog(`[ANALYSIS] Measuring ${term}... <span style="float:right">${val} pts</span>`);
     }
 
-    // STEP 2: HEADHUNTING (25 seconds)
+    // STEP 2: HEADHUNTING
     if(!isRunning) return;
     ceoStatus.textContent = "ACQUIRING TALENT...";
+    await wait(1500);
     appendLog(`<strong>[HR]</strong> Initiating executive search for ${strategy.title}...`, '#fff');
     
     const roles = ["Head of Product", "VP of Sales", "Chief Supply Officer", "Legal Counsel"];
-    const names = ["J. Reynolds", "A. Chen", "S. Gupta", "M. Kowalski", "D. Silva"];
+    const names = ["J. Reynolds", "A. Chen", "S. Gupta", "M. Kowalski", "D. Silva", "K. West", "L. Chang"];
     
-    for(const role of roles) {
+    // Hire 3 random roles
+    for(let i=0; i<3; i++) {
       if(!isRunning) return;
-      await wait(6000); // 6 seconds per hire
+      await wait(4000); // 4s per hire
+      const role = roles[i];
       const name = names[Math.floor(Math.random() * names.length)];
-      const salary = Math.floor(Math.random() * 120) + 180; // $180k - $300k
+      const salary = Math.floor(Math.random() * 120) + 180; 
       appendLog(`[HR_AUTO] Offer Accepted: <strong>${role}</strong> (${name}) @ $${salary}k/yr`, '#10b981');
     }
 
-    // STEP 3: INFRASTRUCTURE (15 seconds)
+    // STEP 3: INFRASTRUCTURE
     if(!isRunning) return;
     ceoStatus.textContent = "PROVISIONING RESOURCES...";
-    await wait(4000);
+    await wait(3000);
     appendLog(`[OPS] Registering LLC in Delaware...`);
-    await wait(4000);
+    await wait(3000);
     appendLog(`[OPS] Leasing 40,000 sqft warehouse (Nevada)...`);
-    await wait(4000);
+    await wait(3000);
     appendLog(`[TECH] Spinning up AWS Cluster (us-east-1)...`);
 
-    // STEP 4: COST ANALYSIS (15 seconds)
+    // STEP 4: COST ANALYSIS
     if(!isRunning) return;
     ceoStatus.textContent = "CALCULATING UNIT ECONOMICS...";
-    const costs = ["CAC", "LTV", "Churn Rate", "Logistics Margin"];
+    const costs = ["CAC", "LTV", "Churn Rate"];
     for(const cost of costs) {
       if(!isRunning) return;
-      await wait(3500);
+      await wait(2500);
       appendLog(`[FINANCE] Optimizing ${cost}...`);
     }
     
-    // STEP 5: FINAL EXECUTION (Result)
+    // STEP 5: EXECUTION REPORT
     if(!isRunning) return;
     
-    // Clear old reports
+    // Clear old reports safely
     const oldReports = ceoConsole.querySelectorAll('.report-panel');
     oldReports.forEach(r => r.remove());
 
@@ -142,41 +153,59 @@ document.addEventListener('DOMContentLoaded', () => {
     div.innerHTML = reportHTML;
     ceoFeed.prepend(div);
     
-    ceoStatus.textContent = "VENTURE ACTIVE. SCANNING FOR NEXT...";
-    
-    // Restart loop after short breather
-    await wait(5000);
-    runCycle();
+    ceoStatus.textContent = "VENTURE ACTIVE.";
+    await wait(3000);
   }
 
-  // --- 4. MAIN LOOP TRIGGER ---
+  // --- 4. THE MAIN ENGINE (Infinite Loop) ---
+
+  async function startEngine() {
+    // This is the forever loop
+    while(isRunning) {
+      try {
+        ceoStatus.textContent = "SEARCHING FOR MARKET GAP...";
+        
+        // 1. Get Idea
+        const seedWord = await fetchRandomTrend();
+        const strategy = generateBusinessThesis(seedWord);
+        
+        appendLog(`<strong>[IDEA DETECTED]</strong> Disruption opportunity in: ${strategy.topic.toUpperCase()}`, '#fff');
+        
+        // 2. Do the work
+        await performDeepWork(strategy);
+
+        // 3. Pause briefly before next cycle (if still running)
+        if(isRunning) {
+           ceoStatus.textContent = "SCANNING FOR NEXT OPPORTUNITY...";
+           await wait(4000); 
+        }
+
+      } catch (e) {
+        console.error("Simulation Glitch:", e);
+        appendLog(`[SYSTEM] Minor glitch detected. Rebooting strategy engine...`, '#ef4444');
+        await wait(2000); // Just wait and try again, don't crash
+      }
+    }
+  }
+
+  // --- 5. BUTTON HANDLER ---
 
   if (ceoBtn && ceoConsole && ceoFeed) {
-    ceoBtn.addEventListener('click', async () => {
+    ceoBtn.addEventListener('click', () => {
       if (isRunning) {
+        // Stop
         isRunning = false;
         ceoStatus.textContent = "STATUS: PAUSED";
         ceoStatus.style.color = "#ef4444";
         ceoBtn.textContent = "RESUME AUTONOMY";
-        return;
+      } else {
+        // Start
+        isRunning = true;
+        ceoBtn.textContent = "STOP OPERATION";
+        ceoStatus.style.color = "#8b5cf6";
+        startEngine(); // Kick off the while loop
       }
-
-      isRunning = true;
-      ceoBtn.textContent = "STOP OPERATION";
-      ceoStatus.style.color = "#8b5cf6";
-      runCycle();
     });
-
-    async function runCycle() {
-      if (!isRunning) return;
-      ceoStatus.textContent = "SEARCHING FOR MARKET GAP...";
-      const seedWord = await fetchRandomTrend();
-      const strategy = generateBusinessThesis(seedWord);
-      
-      appendLog(`<strong>[IDEA DETECTED]</strong> Disruption opportunity in: ${strategy.topic.toUpperCase()}`, '#fff');
-      
-      // Start the long process
-      await performDeepWork(strategy);
-    }
   }
+
 });
