@@ -1,33 +1,285 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>hbehal-bit — Personal Site</title>
-  <meta name="description" content="Welcome to hbehal-bit's GitHub Pages site.">
-  <style>body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial;max-width:48rem;margin:4rem auto;padding:1rem;color:#0b1220}header{border-bottom:1px solid #e6e6e6;padding-bottom:1rem;margin-bottom:1rem}a{color:#0366d6}</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Watchdog Accounting — The Machine Is The CEO</title>
+  <meta name="description" content="Watchdog Accounting: An on-premise, hardware-accelerated Executive Engine that prevents failure, authorizes the future, and scales companies without the human tax." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <meta name="theme-color" content="#0f1724" />
 </head>
 <body>
-<header>
-  <h1>Welcome — hbehal-bit</h1>
-  <p>Site generated from the repository <code>hbehal-bit/hbehal-bit.github.io</code>.</p>
-</header>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <img src="assets/logo.svg" alt="Watchdog Accounting" />
+        <span>Watchdog Accounting</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#thesis">Thesis</a>
+        <a href="#engine">Engine</a>
+        <a href="#features">Features</a>
+        <a href="#market">Market</a>
+        <a href="#gtm">Go-to-Market</a>
+        <a href="#contact" class="cta">Request Demo</a>
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌗</button>
+        <button id="mobileToggle" class="mobile-toggle" aria-label="Toggle menu">☰</button>
+      </nav>
+    </div>
+  </header>
 
-<main>
-  <p>This is a starter index.html so your repository can publish a GitHub Pages site. To point your custom domain to this site, add a file named <code>CNAME</code> with your domain (e.g. <code>example.com</code>) in the repository root, and configure your DNS to point to GitHub Pages. See <a href="https://docs.github.com/en/pages">GitHub Pages documentation</a> for details.</p>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1>The Machine Is The CEO</h1>
+          <p class="lede">Watchdog Accounting (WA) is not a tool — it’s the first localized Executive Engine: a 1x1m GPU-powered nervous system that stops failure, authorizes the future, and removes the human tax on scale.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-primary">Request a Demo</a>
+            <a href="#features" class="btn btn-outline">See Features</a>
+          </div>
+          <ul class="highlights">
+            <li><strong>Zero-Latency Inference:</strong> Millisecond anomaly detection on-premise.</li>
+            <li><strong>Permanent Audit:</strong> Continuous, unalterable compliance trail.</li>
+            <li><strong>Decouple Headcount:</strong> 25 advisors, the power of 500 people.</li>
+          </ul>
+        </div>
+        <aside class="hero-aside">
+          <div class="card live-feed" aria-live="polite">
+            <h3>Live Feed — Sample Signals</h3>
+            <ul id="feedList" class="feed-list">
+              <!-- JS will populate -->
+            </ul>
+            <div class="feed-controls">
+              <button id="pauseFeed" class="btn small">Pause</button>
+              <button id="clearFeed" class="btn small muted">Clear</button>
+            </div>
+          </div>
+          <div class="card metrics">
+            <div class="metric">
+              <span class="value">0.5s</span>
+              <span class="label">Avg detection latency</span>
+            </div>
+            <div class="metric">
+              <span class="value">100%</span>
+              <span class="label">Transaction coverage</span>
+            </div>
+            <div class="metric">
+              <span class="value">1x1m</span>
+              <span class="label">On-prem GPU footprint</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-  <h2>What's next</h2>
-  <ul>
-    <li>Add your content (HTML/CSS/JS) or a static site generator output.</li>
-    <li>Add a <code>CNAME</code> file with your domain if you want a custom domain.</li>
-    <li>Enable GitHub Pages in repository Settings (branch: main) if not already enabled.</li>
-  </ul>
+    <section id="thesis" class="section container">
+      <h2>The Thesis of Operational Alpha</h2>
+      <p>We stop paying the Human Tax: latency, error, and scale friction. WA transforms accounting from a rearview mirror into an Executive Engine that prevents failures and authorizes the future.</p>
+      <div class="grid-3">
+        <div class="feature-card">
+          <h3>Intelligence Moat</h3>
+          <p>WA learns your company's DNA, moves from detection to prevention, and eliminates the window for loss.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Decoupling Headcount</h3>
+          <p>25 strategic advisors deliver the operational power of hundreds — decisions replace number-crunching.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Regulatory Wall</h3>
+          <p>Always-on compliance builds a legal moat — we don't follow the rules, we raise them.</p>
+        </div>
+      </div>
+    </section>
 
-  <p>If you'd like, I can also add a basic CNAME file or set up a GitHub Actions workflow to build a static site—tell me your preferences.</p>
-</main>
+    <section id="engine" class="section alt">
+      <div class="container">
+        <h2>Solution Overview — The Engine of Absolute Certainty</h2>
+        <p>WA is a localized, high-performance on-prem GPU system that converts raw transactions into real-time strategic commands.</p>
 
-<footer>
-  <p>Generated: 2026-01-15</p>
-</footer>
+        <div class="feature-grid">
+          <article>
+            <h3>The Localized Intelligence Core</h3>
+            <p>A 1x1 meter GPU appliance for sovereign, zero-latency inference. Privacy as a weapon: data never leaves your infrastructure.</p>
+          </article>
+          <article>
+            <h3>The Fraud Immune System</h3>
+            <p>Behavioral DNA mapping plus hardware-accelerated anomaly detection. Proactive interventions can freeze suspicious flows automatically.</p>
+          </article>
+          <article>
+            <h3>Real-Time Audit & Compliance Fortress</h3>
+            <p>Permanent, immutable trails mapped to global regulatory frameworks — audit-ready at any moment.</p>
+          </article>
+          <article>
+            <h3>ERP Synthesis</h3>
+            <p>Transparent, non-invasive integration layer that upgrades existing ERPs into a Command & Control brain.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section container">
+      <h2>Product Features</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Sovereign Immune System</h3>
+          <p>Hardware-accelerated anomaly detection scanning every ledger entry in real-time. Detects unknown fraud by modeling what should happen.</p>
+
+          <h3>Frictionless Execution Engine</h3>
+          <p>Zero-latency reconciliation and an "invisible" month-end — books closed continuously so capital moves instantly.</p>
+
+          <h3>Command & Control HUD</h3>
+          <p>Decision-grade metrics, strategic alerts, and threshold dominance to turn signals into action.</p>
+        </div>
+        <div>
+          <h3>Governance Vault</h3>
+          <p>Granular role-based access, hardware-locked audit trails, and regulatory capture-ready evidence.</p>
+
+          <h3>Strategic Foresight Module</h3>
+          <p>Predictive cash war-gaming, vendor/customer risk scoring, and scenario simulation for capital velocity.</p>
+
+          <h3>ERP Integration</h3>
+          <p>Plug into SAP, Oracle, or legacy stacks with minimal disruption — WA occupies and upgrades the system.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="market" class="section alt">
+      <div class="container">
+        <h2>Market & Segmentation</h2>
+        <p>We target high-impact segments first: mid-market e-commerce, audit firms, and high-risk industries where transparency and velocity are valued.</p>
+        <div class="market-grid">
+          <div class="market-card">
+            <h4>SMEs</h4>
+            <p>Scaling pains, legacy tech. WA automates and secures growth with strong ROI.</p>
+          </div>
+          <div class="market-card">
+            <h4>Accounting / Audit Firms</h4>
+            <p>Force-multiplier: one firm can onboard dozens of clients, replacing sampling with full-coverage analysis.</p>
+          </div>
+          <div class="market-card">
+            <h4>E-commerce & High-Volume</h4>
+            <p>Cross-border complexity, inventory fraud — WA gives instant, continuous control and prediction.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gtm" class="section container">
+      <h2>Go-to-Market</h2>
+      <ol class="g-step">
+        <li><strong>Pilot & Beta:</strong> 90 day stress tests with anchor accounting firms; convert winners to priority customers.</li>
+        <li><strong>ERP Partnerships:</strong> Integrate deeply with SAP/Oracle partners and ERP integrators.</li>
+        <li><strong>Educational Briefings:</strong> Webinars targeted at CFOs and Heads of Internal Audit — not products, but doctrine.</li>
+        <li><strong>Direct Close-Quarters Sales:</strong> Elite, outcomes-driven sales for high-LTV customers.</li>
+      </ol>
+    </section>
+
+    <section id="pricing" class="section alt container">
+      <h2>Commercial Models</h2>
+      <p>Flexible licensing: On-prem appliance + subscription tiers, enterprise licensing, implementation services, and premium modules (predictive analytics, compliance vault).</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Starter</h3>
+          <p class="price">$5k/mo</p>
+          <ul>
+            <li>Basic on-prem inference</li>
+            <li>Realtime reconciliation</li>
+            <li>Email support</li>
+          </ul>
+        </div>
+        <div class="price-card featured">
+          <h3>Pro</h3>
+          <p class="price">$25k/mo</p>
+          <ul>
+            <li>Full transaction coverage</li>
+            <li>Predictive analytics</li>
+            <li>ERP integrations</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <h3>Enterprise</h3>
+          <p class="price">Custom</p>
+          <ul>
+            <li>Dedicated appliance & support</li>
+            <li>White-glove onboarding</li>
+            <li>Regulatory capture consultancy</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section container">
+      <h2>Request a Demo</h2>
+      <p>Bring the WA nervous system into your walls. Fill out the form and an elite advisor will contact you.</p>
+
+      <div class="contact-grid">
+        <form id="contactForm" class="contact-form" novalidate>
+          <label>
+            Company
+            <input type="text" name="company" required />
+          </label>
+          <label>
+            Name
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="4" placeholder="Tell us about scale challenges..." required></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Request Demo</button>
+            <button type="button" id="resetForm" class="btn btn-outline muted">Reset</button>
+          </div>
+        </form>
+
+        <aside class="contact-info">
+          <h3>Why WA?</h3>
+          <p>Zero-latency control. Permanent audit trails. Capital velocity. Regulatory dominance. The machine is the CEO — and it reports only to you.</p>
+
+          <h4>Offices</h4>
+          <p>Available for secure on-site installs worldwide. Contact will include onboarding options and appliance lead times.</p>
+
+          <div class="small">Estimated appliance lead time: 6–12 weeks (pilot priority).</div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="brand" href="#top">
+            <img src="assets/logo.svg" alt="Watchdog Accounting" />
+            <span>Watchdog Accounting</span>
+          </a>
+          <p class="muted">© <span id="year"></span> Watchdog Accounting. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#thesis">Thesis</a>
+          <a href="#engine">Engine</a>
+          <a href="#features">Features</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button id="closeModal" class="icon-btn modal-close" aria-label="Close">✕</button>
+      <h3>Demo request sent</h3>
+      <p>Thanks — your request has been queued. An advisor will contact you within 48 hours to schedule a secure briefing.</p>
+      <div class="modal-actions">
+        <button id="modalOk" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
