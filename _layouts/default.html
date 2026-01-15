@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ page.title | default: site.title }}</title>
+  <meta name="description" content="Watchdog Accounting: An on-premise, hardware-accelerated Executive Engine that prevents failure, authorizes the future, and scales companies without the human tax." />
+  <link rel="stylesheet" href="{{ '/css/styles.css' | relative_url }}" />
+  <meta name="theme-color" content="#0f1724" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <img src="{{ '/assets/logo.svg' | relative_url }}" alt="Watchdog Accounting" />
+        <span>Watchdog Accounting</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#thesis">Thesis</a>
+        <a href="#engine">Engine</a>
+        <a href="#features">Features</a>
+        <a href="#market">Market</a>
+        <a href="#gtm">Go-to-Market</a>
+        <a href="#contact" class="cta">Request Demo</a>
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌗</button>
+        <button id="mobileToggle" class="mobile-toggle" aria-label="Toggle menu">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Page content inserted here -->
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="{{ '/' | relative_url }}">
+          <img src="{{ '/assets/logo.svg' | relative_url }}" alt="Watchdog Accounting" />
+          <span>Watchdog Accounting</span>
+        </a>
+        <p class="muted">© <span id="year"></span> Watchdog Accounting. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#thesis">Thesis</a>
+        <a href="#engine">Engine</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button id="closeModal" class="icon-btn modal-close" aria-label="Close">✕</button>
+      <h3>Demo request sent</h3>
+      <p>Thanks — your request has been queued. An advisor will contact you within 48 hours to schedule a secure briefing.</p>
+      <div class="modal-actions">
+        <button id="modalOk" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ '/js/script.js' | relative_url }}"></script>
+</body>
+</html>
