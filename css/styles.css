@@ -266,12 +266,15 @@ body{
 
 .report-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* Creates a 2x2 grid */
   gap: 1rem;
   margin-bottom: 1.5rem;
   background: rgba(255,255,255,0.03);
   padding: 1rem;
   border-radius: 6px;
+}
+@media (min-width: 700px) {
+  .report-grid { grid-template-columns: repeat(4, 1fr); } /* 4 across on desktop */
 }
 .report-stat .label { display: block; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .report-stat .value { font-size: 1.25rem; font-weight: 700; color: #fff; }
