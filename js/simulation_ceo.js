@@ -1,5 +1,5 @@
 // Watchdog Accounting — simulation_ceo.js
-// The "God Mode" simulation: Market scanning, project creation, and auto-execution.
+// The "God Mode" simulation: Fetches random topics from the web to generate B2B/B2C strategies.
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -7,152 +7,177 @@ document.addEventListener('DOMContentLoaded', () => {
   const ceoConsole = document.getElementById('ceoConsole');
   const ceoFeed = document.getElementById('ceoFeed');
   const ceoStatus = document.getElementById('ceoStatus');
+  
+  let isRunning = false;
+  let loopId = null;
+
+  // --- 1. THE WEB FETCHING ENGINE ---
+  
+  // Fetches a random noun/topic from the public web
+  async function fetchRandomTrend() {
+    try {
+      // Fetch 1 random word to serve as the "Seed" for the business idea
+      const response = await fetch('https://random-word-api.herokuapp.com/word?number=1');
+      if (!response.ok) throw new Error("API Limit");
+      const data = await response.json();
+      return data[0]; // Returns a string like "bicycle", "isotope", "curtain"
+    } catch (error) {
+      // Fallback if offline
+      const fallbacks = ["logistics", "graphene", "coffee", "insurance", "pets", "gravel"];
+      return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+    }
+  }
+
+  // --- 2. THE STRATEGY SYNTHESIZER ---
+
+  function generateBusinessThesis(seedWord) {
+    // Capitalize the seed word
+    const topic = seedWord.charAt(0).toUpperCase() + seedWord.slice(1);
+    
+    // 50% chance of B2B vs B2C
+    const isB2B = Math.random() > 0.5;
+
+    const b2bActions = ["Vertical Integration", "Supply Chain Optimization", "SaaS Platform", "AI Automation", "Wholesale Arbitrage"];
+    const b2cActions = ["Direct-to-Consumer", "Subscription Box", "Luxury Branding", "Gig-Economy App", "Social Marketplace"];
+    
+    const action = isB2B 
+      ? b2bActions[Math.floor(Math.random() * b2bActions.length)] 
+      : b2cActions[Math.floor(Math.random() * b2cActions.length)];
+
+    const title = `${action} for ${topic}`;
+    const type = isB2B ? "B2B_ENTERPRISE" : "B2C_RETAIL";
+
+    // Generate big money numbers
+    const inputVal = (Math.random() * 15 + 2).toFixed(1); // $2M - $17M
+    const outputVal = (parseFloat(inputVal) * (Math.random() * 2.5 + 1.5)).toFixed(1); // High ROI
+
+    return {
+      topic: topic,
+      type: type,
+      title: title,
+      signal: `Market Gap detected in global <strong style="color:#fff">${topic}</strong> demand.`,
+      input: `${inputVal}M`,
+      output: `${outputVal}M`,
+      confidence: `${(Math.random() * 12 + 87).toFixed(1)}%` // 87-99% confidence
+    };
+  }
+
+  // --- 3. DOM HELPERS ---
+
+  function maintainHygiene() {
+    // Keep list short to prevent scrolling issues
+    if (ceoFeed.children.length > 20) {
+      for (let i = 0; i < 3; i++) {
+        if(ceoFeed.lastChild) ceoFeed.removeChild(ceoFeed.lastChild);
+      }
+    }
+  }
+
+  function appendLog(html, color = '#94a3b8') {
+    const li = document.createElement('li');
+    li.style.color = color;
+    li.innerHTML = html;
+    ceoFeed.prepend(li);
+    maintainHygiene();
+  }
+
+  // --- 4. THE LOOP ---
 
   if (ceoBtn && ceoConsole && ceoFeed) {
+    
     ceoBtn.addEventListener('click', () => {
-      // 1. Reset
-      const oldReport = ceoConsole.querySelector('.report-panel');
-      if(oldReport) oldReport.remove();
-      ceoFeed.innerHTML = '';
+      if (isRunning) {
+        // Stop Logic
+        isRunning = false;
+        clearTimeout(loopId);
+        ceoStatus.textContent = "STATUS: PAUSED";
+        ceoStatus.style.color = "#ef4444";
+        ceoBtn.textContent = "RESUME AUTONOMY";
+        return;
+      }
+
+      // Start Logic
+      isRunning = true;
+      ceoBtn.textContent = "HALT EXECUTION";
+      ceoStatus.style.color = "#8b5cf6";
+      runCycle();
+    });
+
+    async function runCycle() {
+      if (!isRunning) return;
+
+      ceoStatus.textContent = "SCANNING WEB FOR TRENDS...";
       
-      ceoStatus.textContent = "SCANNING GLOBAL MARKETS...";
-      ceoBtn.disabled = true;
-      ceoBtn.textContent = "SYNTHESIZING ALPHA...";
-
-      // 2. Define Random Strategic Opportunities
-      const strategies = [
-        {
-          sector: "ENERGY_ARBITRAGE",
-          signal: "Grid instability detected in Sector 7 (Texas/ERCOT).",
-          project: "Project: VIRTUAL_POWER_PLANT",
-          input: "12.5M",
-          output: "48.2M",
-          confidence: "98.4%",
-          hiring: ["Energy Trader (Algo)", "Grid Infrastructure Lead"]
-        },
-        {
-          sector: "RARE_EARTH_METALS",
-          signal: "Silver Scarcity detected. Industrial demand > Supply (+14%).",
-          project: "Project: ARGENTUM_RESERVE",
-          input: "1.9M",
-          output: "22.4M",
-          confidence: "99.1%",
-          hiring: ["Commodities Logistics Head", "Mining Ops Director"]
-        },
-        {
-          sector: "LOGISTICS_AI",
-          signal: "Competitor 'GlobalShip' filing Chapter 11. Route vacuum opening.",
-          project: "Project: ATLANTIC_BRIDGE",
-          input: "55.0M",
-          output: "180.0M",
-          confidence: "94.2%",
-          hiring: ["Fleet Acquisition Mgr", "Maritime Legal Counsel"]
-        }
-      ];
-
-      const selected = strategies[Math.floor(Math.random() * strategies.length)];
-
-      // 3. Phase 1: High Speed Scanning
+      // 1. Fetch real random topic
+      const seedWord = await fetchRandomTrend();
+      
+      // 2. Synthesize the Business Idea
+      const strategy = generateBusinessThesis(seedWord);
+      
+      // 3. Scanning Visuals (Searching related terms)
       let scanCount = 0;
       const scanInterval = setInterval(() => {
-        const tickers = ["LITH", "GOLD", "USD/EUR", "NVDA", "SILV", "BRENT", "CORN"];
-        const randTicker = tickers[Math.floor(Math.random() * tickers.length)];
-        const val = (Math.random() * 1000).toFixed(2);
+        if (!isRunning) { clearInterval(scanInterval); return; }
+
+        const relatedTerms = ["Search Volume", "CPC Cost", "Competitor Density", "Regulatory Risk"];
+        const term = relatedTerms[scanCount % relatedTerms.length];
+        const val = Math.floor(Math.random() * 900) + 100;
         
-        const li = document.createElement('li');
-        li.style.color = '#64748b'; // Muted
-        li.innerHTML = `[SCAN] ${randTicker} trading at ${val} // Volatility: Low`;
-        ceoFeed.prepend(li);
+        appendLog(`[MARKET_DATA] Analyzing "${strategy.topic}" :: ${term}: ${val}`);
         
         scanCount++;
-        if(scanCount > 8) {
+        if(scanCount >= 3) {
           clearInterval(scanInterval);
-          triggerDetection(selected);
+          if(isRunning) triggerDecision(strategy);
         }
-      }, 150);
+      }, 500); 
+    }
 
-      // 4. Phase 2: Detection & Project Creation
-      function triggerDetection(strategy) {
-        setTimeout(() => {
-          const li = document.createElement('li');
-          li.style.color = '#fff';
-          li.innerHTML = `<strong>[SIGNAL LOCK]</strong> ${strategy.signal}`;
-          ceoFeed.prepend(li);
-          
-          ceoStatus.textContent = "OPPORTUNITY IDENTIFIED";
-        }, 500);
+    function triggerDecision(strategy) {
+      if (!isRunning) return;
 
-        setTimeout(() => {
-          const li = document.createElement('li');
-          li.style.color = '#8b5cf6'; // Violet
-          li.innerHTML = `<strong>[EXECUTION]</strong> Initiating ${strategy.project}...`;
-          ceoFeed.prepend(li);
-        }, 1200);
+      setTimeout(() => {
+        if (!isRunning) return;
+        appendLog(`<strong>[IDEA LOCKED]</strong> ${strategy.signal}`, '#fff');
+        ceoStatus.textContent = "GENERATING BUSINESS PLAN...";
+      }, 200);
 
-        setTimeout(() => {
-          // Simulation of calculation
-          const calcLi = document.createElement('li');
-          calcLi.innerHTML = `[CALC] Monte Carlo Simulation (n=10,000): <span style="color:#10b981">Confidence ${strategy.confidence}</span>`;
-          ceoFeed.prepend(calcLi);
-        }, 2000);
+      setTimeout(() => {
+        if (!isRunning) return;
+        
+        // Clear old reports
+        const oldReports = ceoConsole.querySelectorAll('.report-panel');
+        oldReports.forEach(r => r.remove());
 
-        setTimeout(() => {
-          triggerExecution(strategy);
-        }, 3000);
-      }
-
-      // 5. Phase 3: Auto-Execution (Hiring & Goals)
-      function triggerExecution(strategy) {
-        ceoStatus.textContent = "DEPLOYING RESOURCES";
-
-        // Create Jobs
-        strategy.hiring.forEach((role, index) => {
-          setTimeout(() => {
-            const li = document.createElement('li');
-            li.innerHTML = `[HR_AUTO] Generated Req #${Math.floor(Math.random()*9000)+1000}: <strong>${role}</strong>. Posting to LinkedIn/Indeed...`;
-            ceoFeed.prepend(li);
-          }, index * 800);
-        });
-
-        // Set Deadlines
-        setTimeout(() => {
-          const li = document.createElement('li');
-          li.innerHTML = `[GOVERNANCE] Deadline set: Q3-2026. KPI: Net Margin > 40%.`;
-          ceoFeed.prepend(li);
-        }, 2000);
-
-        // Final Executive Summary Card
-        setTimeout(() => {
-          ceoStatus.textContent = "PROJECT ACTIVE";
-          ceoBtn.disabled = false;
-          ceoBtn.textContent = "INITIATE STRATEGY";
-
-          const reportHTML = `
-            <div class="report-panel" style="border-top-color: #8b5cf6;">
+        // Create new Report
+        const reportHTML = `
+            <div class="report-panel" style="border-top-color: #8b5cf6; margin-bottom: 1rem;">
               <div class="report-header">
-                <span class="report-title" style="color:#8b5cf6">EXECUTIVE ORDER #99-A</span>
-                <span class="report-id">AUTO-AUTHORIZED</span>
+                <span class="report-title" style="color:#8b5cf6">${strategy.type}</span>
+                <span class="report-id">NEW VENTURE</span>
               </div>
               <div class="report-grid">
-                <div class="report-stat"><span class="label">CapEx Input</span><span class="value">$${strategy.input}</span></div>
-                <div class="report-stat"><span class="label">Proj. Return</span><span class="value secure">$${strategy.output}</span></div>
-                <div class="report-stat"><span class="label">Confidence</span><span class="value secure">${strategy.confidence}</span></div>
-                <div class="report-stat"><span class="label">Timeline</span><span class="value">18 Mo</span></div>
-              </div>
-              <div class="sop-section">
-                <h4>AUTOMATED WORKFLOWS:</h4>
-                <ul class="sop-list">
-                  <li>Seed Capital Transferred: <span>CONFIRMED</span></li>
-                  <li>Legal Entity (LLC) Formed: <span>DELAWARE</span></li>
-                  <li>Recruitment Bots: <span>ACTIVE (Targeting Competitors)</span></li>
-                  <li>Cloud Infrastructure: <span>PROVISIONED</span></li>
-                </ul>
+                <div class="report-stat" style="grid-column: span 2; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:0.5rem; padding-bottom:0.5rem;">
+                   <span class="label">Strategy</span>
+                   <span class="value" style="font-size:1rem;">${strategy.title}</span>
+                </div>
+                <div class="report-stat"><span class="label">CapEx</span><span class="value">$${strategy.input}</span></div>
+                <div class="report-stat"><span class="label">Proj. Rev</span><span class="value secure">$${strategy.output}</span></div>
               </div>
             </div>
-          `;
-          ceoConsole.insertAdjacentHTML('beforeend', reportHTML);
-        }, 3500);
-      }
-    });
+        `;
+        const div = document.createElement('li');
+        div.innerHTML = reportHTML;
+        ceoFeed.prepend(div);
+        
+        ceoStatus.textContent = `LAUNCHING: ${strategy.topic.toUpperCase()} DIVISION`;
+        
+        // RECURSION:
+        loopId = setTimeout(() => {
+          runCycle();
+        }, 4000); // Wait 4 seconds before the next idea
+
+      }, 1800);
+    }
   }
 });
