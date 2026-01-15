@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>The Machine — Watchdog Accounting</title>
+  <meta name="description" content="A 1x1m air-gapped GPU unit that sits in your server room. Total sovereignty. Zero latency." />
   <link rel="stylesheet" href="css/styles.css" />
   <meta name="theme-color" content="#0f1724" />
 </head>
@@ -15,8 +16,11 @@
         <span>Watchdog Accounting</span>
       </a>
       <nav class="nav" id="nav">
-        <a href="index.html">Home</a>
-        <a href="technology.html" class="active">Technology</a> <a href="index.html#contact" class="cta">Request Demo</a>
+        <a href="index.html#thesis">Thesis</a>
+        <a href="technology.html" class="active">Technology</a>
+        <a href="index.html#engine">Engine</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#contact" class="cta">Request Demo</a>
         <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌗</button>
         <button id="mobileToggle" class="mobile-toggle" aria-label="Toggle menu">☰</button>
       </nav>
@@ -56,8 +60,8 @@
 
     <section class="section alt">
       <div class="container">
-        <h2>Active Defense Simulation</h2>
-        <p>Experience how Watchdog reacts to a frantic transaction flood (e.g., an invoice spinning attack).</p>
+        <h2>Active Defense Simulation (External)</h2>
+        <p>Experience how Watchdog reacts to a brute-force invoice injection attack from an unknown vector.</p>
         
         <div class="demo-console" id="demoConsole">
           <div class="console-header">
@@ -74,43 +78,71 @@
     </section>
 
     <section class="section container">
-      <h2>The ROI of Automation</h2>
-      <div class="comparison-wrapper">
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th class="negative">Human Audit Team</th>
-              <th class="positive">Watchdog Engine</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Close Speed</td>
-              <td>15-30 Days</td>
-              <td><strong>Real-Time (Continuous)</strong></td>
-            </tr>
-            <tr>
-              <td>Error Rate</td>
-              <td>3-5% (Sampling)</td>
-              <td><strong>0.00% (Full Coverage)</strong></td>
-            </tr>
-            <tr>
-              <td>Capacity</td>
-              <td>Linear (Hire more people)</td>
-              <td><strong>Infinite (Scale compute)</strong></td>
-            </tr>
-            <tr>
-              <td>Cost Model</td>
-              <td>Variable & Rising</td>
-              <td><strong>Fixed Hardware Asset</strong></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h2>Internal Threat Detection</h2>
+          <p>Watchdog audits your own staff without bias. It detects expense fraud and payroll anomalies while automatically masking PII (Personally Identifiable Information) to protect employee privacy during the investigation phase.</p>
+          <ul class="highlights">
+            <li><strong>Pattern Recognition:</strong> Detects "structuring" (splitting expenses).</li>
+            <li><strong>Privacy-First:</strong> Names are hashed (SHA-256) until HR authorization.</li>
+            <li><strong>Auto-Reporting:</strong> Evidence packages generated instantly.</li>
+          </ul>
+        </div>
+        
+        <div class="demo-console" id="auditConsole" style="border-color: #f59e0b;">
+          <div class="console-header" style="color: #f59e0b; border-bottom-color: #f59e0b;">
+            <span>INTERNAL_AUDIT_V4 // ACCESS RESTRICTED</span>
+            <button id="runAudit" class="btn btn-outline small" style="color: #f59e0b; border-color: #f59e0b;">RUN DEEP SCAN</button>
+          </div>
+          <ul id="auditFeed" class="feed-list console-feed">
+            <li>[SYSTEM] Employee database mounted.</li>
+            <li>[SYSTEM] Privacy filters active (GDPR Mode).</li>
+          </ul>
+          <div class="console-status" id="auditStatus" style="color: #f59e0b;">STATUS: IDLE</div>
+        </div>
       </div>
     </section>
 
     <section class="section alt">
+      <div class="container">
+        <h2>The ROI of Automation</h2>
+        <div class="comparison-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th class="negative">Human Audit Team</th>
+                <th class="positive">Watchdog Engine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Close Speed</td>
+                <td>15-30 Days</td>
+                <td><strong>Real-Time (Continuous)</strong></td>
+              </tr>
+              <tr>
+                <td>Error Rate</td>
+                <td>3-5% (Sampling)</td>
+                <td><strong>0.00% (Full Coverage)</strong></td>
+              </tr>
+              <tr>
+                <td>Capacity</td>
+                <td>Linear (Hire more people)</td>
+                <td><strong>Infinite (Scale compute)</strong></td>
+              </tr>
+              <tr>
+                <td>Cost Model</td>
+                <td>Variable & Rising</td>
+                <td><strong>Fixed Hardware Asset</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
       <div class="container">
         <h2>Compliance Fortress</h2>
         <p>We don't just meet standards; we enforce them at the kernel level.</p>
@@ -125,8 +157,19 @@
     </section>
 
     <footer class="site-footer">
-      <div class="container">
-        <p class="muted">© <span id="year">2026</span> Watchdog Accounting.</p>
+      <div class="container footer-grid">
+        <div>
+          <a class="brand" href="index.html">
+            <img src="assets/logo.svg" alt="Watchdog Accounting" />
+            <span>Watchdog Accounting</span>
+          </a>
+          <p class="muted">© <span id="year"></span> Watchdog Accounting.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="technology.html">Technology</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
       </div>
     </footer>
   </main>
