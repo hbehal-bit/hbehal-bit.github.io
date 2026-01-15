@@ -1,48 +1,8 @@
-This is a perfect addition for the "Technology" page. It completes the narrative: **Defense (Red)** -> **Internal Audit (Amber)** -> **Compliance/Tax (Green)**.
-
-I will create a simulation that visualizes the **"Continuous Close"**. Instead of a frantic attack, this one feels precise, heavy, and official. It will show the system aggregating data, optimizing tax liability, getting a "digital stamp" from an external auditor (the third-party review), and filing directly to the government.
-
-### 1. Update `technology.html`
-
-Add this new section **below** the Internal Audit section (but above the ROI table).
-
-```html
-    <section class="section alt">
-      <div class="container">
-        <h2>Automated Tax Sovereignty</h2>
-        <p>The "Continuous Close" means tax season is non-existent. Watchdog aggregates global liability in real-time, optimizes carry-forward losses, and secures external cryptographic validation before submission.</p>
-        
-        <div class="demo-console" id="taxConsole" style="border-color: #10b981;">
-          <div class="console-header" style="color: #10b981; border-bottom-color: #10b981;">
-            <span>FISCAL_GATEWAY_V9 // AUTHORIZED</span>
-            <button id="runTax" class="btn btn-outline small" style="color: #10b981; border-color: #10b981;">INITIATE FISCAL CLOSE</button>
-          </div>
-          <ul id="taxFeed" class="feed-list console-feed">
-            <li>[SYSTEM] Connection established to IRS/HMRC Gateways.</li>
-            <li>[SYSTEM] Ledger locked. Awaiting command.</li>
-          </ul>
-          <div class="console-status" id="taxStatus" style="color: #10b981;">STATUS: READY</div>
-        </div>
-      </div>
-    </section>
-
-```
-
-### 2. Update `js/simulation.js` (Full File)
-
-Here is the updated file with **all 3 simulations** included.
-
-**New Features in Simulation 3:**
-
-* **Tax Optimization:** It calculates a "Tax Savings" amount based on "Carry-forward Loss Application."
-* **Third-Party Review:** It simulates an API handshake with a major firm (e.g., "PwC_Validator_Node") to verify the math before sending.
-* **Official Filing:** It generates a submission hash and an acceptance token.
-
-```javascript
 // Watchdog Accounting — simulation.js
 // Advanced interactive threat simulations for the Technology page.
 
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
+
   // ==========================================
   // SIMULATION 1: EXTERNAL ATTACK (Red/Blue)
   // ==========================================
@@ -226,7 +186,6 @@ Here is the updated file with **all 3 simulations** included.
 
   if (taxBtn && taxConsole && taxFeed) {
     taxBtn.addEventListener('click', () => {
-      // 1. Reset
       const oldReport = taxConsole.querySelector('.report-panel');
       if(oldReport) oldReport.remove();
       taxFeed.innerHTML = '';
@@ -235,7 +194,6 @@ Here is the updated file with **all 3 simulations** included.
       taxBtn.disabled = true;
       taxBtn.textContent = "CALCULATING LIABILITY...";
 
-      // Simulation Steps
       const steps = [
         { t: 100, m: "Pulling Ledger: US_West (Subsid_04) - 100% Match" },
         { t: 400, m: "Pulling Ledger: EU_Frankfurt (Subsid_09) - 100% Match" },
@@ -252,7 +210,6 @@ Here is the updated file with **all 3 simulations** included.
         }, step.t);
       });
 
-      // Third-Party Review Interaction
       setTimeout(() => {
         const reviewLi = document.createElement('li');
         reviewLi.style.color = '#10b981';
@@ -267,15 +224,13 @@ Here is the updated file with **all 3 simulations** included.
 
       }, 3000);
 
-      // Final Submission & Report
       setTimeout(() => {
         taxStatus.textContent = "FILING ACCEPTED";
         taxBtn.disabled = false;
         taxBtn.textContent = "INITIATE FISCAL CLOSE";
 
-        // Generate Random Tax Values
         const taxLiability = Math.floor(Math.random() * 2500000) + 1000000;
-        const taxSaved = Math.floor(taxLiability * 0.12); // 12% savings found
+        const taxSaved = Math.floor(taxLiability * 0.12);
 
         const reportHTML = `
           <div class="report-panel" style="border-top-color: #10b981;">
@@ -302,10 +257,7 @@ Here is the updated file with **all 3 simulations** included.
         `;
         taxConsole.insertAdjacentHTML('beforeend', reportHTML);
       }, 5500);
-
     });
   }
 
-})();
-
-```
+});
