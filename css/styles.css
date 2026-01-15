@@ -1,16 +1,3 @@
-Here is the complete, consolidated **`css/styles.css`** file.
-
-This version includes:
-
-1. All the original styles (Layout, Header, Footer, Forms).
-2. The **3D Server Core** styles.
-3. The **Vertical Stack Layout** (`.tech-stack`) for the technology page.
-4. The **Upgraded Terminal Sizing** (Wider, Taller, Larger Text).
-5. The **Report Panel** styles for the CEO simulation.
-
-Overwrite your existing `css/styles.css` with this:
-
-```css
 /* Watchdog Accounting — styles.css
    Responsive, modern layout with accessible components.
 */
@@ -353,5 +340,3 @@ body {
   .hero-copy h1 { font-size: 1.6rem; }
   .brand img { width: 30px; height: 30px; }
 }
-
-```
