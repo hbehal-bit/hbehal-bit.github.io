@@ -1,0 +1,8 @@
+<svg width="64" height="64" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Watchdog Accounting logo">
+  <rect width="48" height="48" rx="10" fill="#071020"/>
+  <g transform="translate(6,6)" fill="none" stroke="#7c3aed" stroke-width="2">
+    <path d="M6 18 C6 12 10 6 18 6 C26 6 30 12 30 18 C30 24 26 30 18 30 C10 30 6 24 6 18Z" fill="#0b1220" />
+    <path d="M12 18 L24 18" stroke="#06b6d4" stroke-linecap="round"/>
+    <circle cx="18" cy="12" r="1.6" fill="#06b6d4" stroke="none"/>
+  </g>
+</svg>
