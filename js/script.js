@@ -10,7 +10,6 @@
   const nav = document.getElementById('nav');
   mobileToggle && mobileToggle.addEventListener('click', () => {
     nav.classList.toggle('open');
-    // when open, show links visually on small screens
     Array.from(nav.querySelectorAll('a')).forEach(a => {
       a.style.display = a.style.display === 'inline-block' ? '' : 'inline-block';
     });
@@ -100,12 +99,11 @@
       feedList.innerHTML = '';
     });
 
-    // Seed initial messages
     for(let i=0;i<6;i++) addFeed(messages[i%messages.length]);
     startFeed();
   }
 
-  // 5. Tech Page: Attack Simulation
+  // 5. Tech Page: Attack Simulation & Report Generation
   const attackBtn = document.getElementById('simulateAttack');
   const consoleEl = document.getElementById('demoConsole');
   const attackFeed = document.getElementById('attackFeed');
@@ -113,44 +111,92 @@
 
   if (attackBtn && consoleEl && attackFeed) {
     attackBtn.addEventListener('click', () => {
+      // Clean up previous reports if any
+      const oldReport = consoleEl.querySelector('.report-panel');
+      if(oldReport) oldReport.remove();
+
       // Enter Alert Mode
       consoleEl.classList.add('alert');
       statusEl.textContent = "SYSTEM: THREAT DETECTED";
       attackBtn.disabled = true;
       attackBtn.textContent = "MITIGATING...";
       
-      // Flood feed with errors
       let count = 0;
+      let totalValue = 0;
       const attackInterval = setInterval(() => {
         const li = document.createElement('li');
         li.className = 'risk-high';
-        // Generate random IPs for realism
+        
+        // Simulate random fraud amounts
+        const val = Math.floor(Math.random() * 850000) + 15000;
+        totalValue += val;
+        
         const r1 = Math.floor(Math.random()*255);
         const r2 = Math.floor(Math.random()*255);
-        li.innerHTML = `[CRITICAL] Invoice injection detected from IP 192.168.${r1}.${r2}`;
+        li.innerHTML = `[CRITICAL] Invoice injection ($${val.toLocaleString()}) detected from IP 192.168.${r1}.${r2}`;
         attackFeed.prepend(li);
         count++;
 
-        if(count > 15) {
+        if(count > 12) {
           // Resolve Attack
           clearInterval(attackInterval);
+          
           setTimeout(() => {
+            // 1. Success Message
             const successLi = document.createElement('li');
-            successLi.style.color = '#06b6d4'; // Cyan
+            successLi.style.color = '#06b6d4'; 
             successLi.innerHTML = `<strong>[SUCCESS] Threat neutralized. Source blocked.</strong>`;
             attackFeed.prepend(successLi);
             
+            // 2. Reset Status
             statusEl.textContent = "SYSTEM: SECURE";
             consoleEl.classList.remove('alert');
             attackBtn.disabled = false;
             attackBtn.textContent = "⚠ SIMULATE ATTACK";
+
+            // 3. Generate Post-Action Report
+            const reportHTML = `
+              <div class="report-panel">
+                <div class="report-header">
+                  <span class="report-title">INCIDENT REPORT FINALIZED</span>
+                  <span class="report-id">ID: #${Math.floor(Math.random()*9000)+1000}-X</span>
+                </div>
+                <div class="report-grid">
+                  <div class="report-stat">
+                    <span class="label">Total Attempted</span>
+                    <span class="value danger">$${totalValue.toLocaleString()}</span>
+                  </div>
+                  <div class="report-stat">
+                    <span class="label">Funds Secured</span>
+                    <span class="value secure">$${totalValue.toLocaleString()}</span>
+                  </div>
+                  <div class="report-stat">
+                    <span class="label">Prevention Rate</span>
+                    <span class="value">100%</span>
+                  </div>
+                </div>
+                <div class="sop-section">
+                  <h4>SOP 7-ALPHA EXECUTED:</h4>
+                  <ul class="sop-list">
+                    <li>Ledger Snapshot Locked <span>0.02s</span></li>
+                    <li>Origin IPs Blacklisted (Global) <span>0.05s</span></li>
+                    <li>CFO & Legal Notified (Encrypted) <span>0.12s</span></li>
+                    <li>Regulatory Filing Prepared (SEC) <span>0.80s</span></li>
+                  </ul>
+                </div>
+              </div>
+            `;
+            
+            // Append report to console
+            consoleEl.insertAdjacentHTML('beforeend', reportHTML);
+            
           }, 800);
         }
-      }, 80); // Fast burst speed (80ms)
+      }, 90); 
     });
   }
 
-  // Global: Escape key to close modal
+  // Global: Escape key
   document.addEventListener('keydown', (e) => {
     if(e.key === 'Escape') {
       if(modal && modal.getAttribute('aria-hidden') === 'false') hideModal();
