@@ -1,3 +1,6 @@
+Here is the complete **`technology.html`** file, updated to include the new **Tax & Regulatory Simulation** section.
+
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -105,6 +108,25 @@
 
     <section class="section alt">
       <div class="container">
+        <h2>Automated Tax Sovereignty</h2>
+        <p>The "Continuous Close" means tax season is non-existent. Watchdog aggregates global liability in real-time, optimizes carry-forward losses, and secures external cryptographic validation before submission.</p>
+        
+        <div class="demo-console" id="taxConsole" style="border-color: #10b981;">
+          <div class="console-header" style="color: #10b981; border-bottom-color: #10b981;">
+            <span>FISCAL_GATEWAY_V9 // AUTHORIZED</span>
+            <button id="runTax" class="btn btn-outline small" style="color: #10b981; border-color: #10b981;">INITIATE FISCAL CLOSE</button>
+          </div>
+          <ul id="taxFeed" class="feed-list console-feed">
+            <li>[SYSTEM] Connection established to IRS/HMRC Gateways.</li>
+            <li>[SYSTEM] Ledger locked. Awaiting command.</li>
+          </ul>
+          <div class="console-status" id="taxStatus" style="color: #10b981;">STATUS: READY</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="container">
         <h2>The ROI of Automation</h2>
         <div class="comparison-wrapper">
           <table class="comparison-table">
@@ -142,7 +164,7 @@
       </div>
     </section>
 
-    <section class="section container">
+    <section class="section alt">
       <div class="container">
         <h2>Compliance Fortress</h2>
         <p>We don't just meet standards; we enforce them at the kernel level.</p>
@@ -178,3 +200,5 @@
   <script src="js/simulation.js"></script>
 </body>
 </html>
+
+```
